@@ -127,5 +127,14 @@ redundancy(HSRP):
 
 to hash passwords in MD5 
 	service password encryption
-	
-	
+
+Configuring ACL lists:
+	ip access-list <standard/extended> <name> (standard for blocking networks, extended for just hosts)
+	deny ip host <host address> <network address you wanna block the host from> <wild card mask> 
+		(wild card mask is basically the reversed version of the subnet mask. easiest way to find the wild card mask is to just subtract 255 from all the octets 
+		eg: subnet mask 255.255.255.248. the wildcard mask of this is 0.0.0.7 )
+	permit ip any any (let all other ips except the blocked ones thru)
+
+applying ACL list:
+	interface <port no>
+	ip access-group <ACL name> <in/out>  (in to apply the filter for incoming traffic. out to apply the filter for outgoing traffic)
