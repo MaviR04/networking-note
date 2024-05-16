@@ -1,0 +1,131 @@
+Facebook
+        ipv6: 2a03:2880:f188:181:face:b00c:0:25de
+        ipv4: 163.70.144.35
+
+
+command used:
+    nslookup-lookup the 1pv4 and ipv6 of an URL
+	ipconfig-brings up your pcs ip coniguration
+	
+network address- A collection of many addresses 
+
+----192.168.10.0/24----
+
+{192.168.10 }Network ID      {.0}-host ID
+
+subnet mask: conerting all the network bits to 1 and then converting it to decimal
+
+router:-routes network traffic to destination
+switches:- connects many devices to a single point using wires. 
+
+access points:- access points work just like switches but wirelessly connecting multiple devices to a single point from where they can acccess the router
+
+CISCO
+copper straight through is for connecting a PC to a switch
+copper straight through can also be used for connecting switches to routers
+to connect router to router you must use serial dce(must add serial port to router if it is not available)
+
+
+configuring routers
+to configure a router open the CLI, answer no for inital configuration, 
+get out of user mode(router>)
+enter "enable" to enter privileded mode(router#)
+type"show ip interface brief"
+
+
+
+
+defalt gateway:
+usually assigned the first ip of the network since it is importnant
+
+in the subnet between the two routers the routers get assigned the first two ips of that network as the two default gateways
+
+
+
+192.168.192.0/20
+
+
+Vlan
+confguring default gateways:
+	go to router to split 1 gateway into 2 virtual gateways
+	interface fe0/0.1
+	encapsulation dot1q VLAN ID
+	issue the default gateway address
+
+VLSM
+
+Switch configuration:
+	enable
+	show vlan brief
+	conf t
+	interface fe 0/1
+	switchport mode accesss
+	switchport acess vlan {VLanID}
+	Creating Vlan:
+		vlan (VlanID)
+		name  (optional)
+		
+	Creating TrunkPorts:
+		interface with port connecting your witch to the router
+		switchport mode trunk
+
+Routing:
+	router rip
+	network <network id>
+
+dhcp:
+	ip dhcp pool <name>
+	network <network id><subnet mask>
+	default-router <gateway address>
+	ip dhcp excluded-address <gateway address>
+
+Security:
+	Connect laptop  using console cable
+	conf t
+	line console 0
+	password <password>
+	login
+	exit 
+	
+	Applying another layer of security for admin mode:
+		enable password <password>
+
+	for modem access:
+		conf t 
+		line aux-0
+		password <password>
+		login
+		exit
+	Remote access config:
+		conf t
+		line vty 0 15
+		password ciscovtypass
+		login
+		transport input telnet 
+		exit
+
+	remotely accessing the router through a laptop
+
+		command prompt
+		telnet (router address)
+		then it should ask for password
+redundancy(HSRP): 
+	in the router
+	
+	int fa
+	standby 1 ip <gateway address of that  network>
+	standby 1 name <name>(optional)
+	standby 1 priority 110
+	standby 1 preempt
+
+	int fa
+	standby 1 ip <gateway address of that  network>
+	standby 1 name <name>(optional)
+	standby 1 priority 100
+	standby 1 preempt
+
+
+to hash passwords in MD5 
+	service password encryption
+	
+	
